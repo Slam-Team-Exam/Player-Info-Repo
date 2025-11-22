@@ -4,93 +4,92 @@ using System.Security.Claims;
 
 namespace Player_Info.Controllers
 {
-    public class Player_Info_Controller
+
+
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class PlayerController : ControllerBase
     {
-
-        [ApiController]
-        [Route("api/[controller]")]
-        [Authorize] 
-        public class PlayerController : ControllerBase
+        // POST: api/player
+        [HttpPost("MakePlayer")]
+        public IActionResult MakePlayer()
         {
-            // POST: api/player
-            [HttpPost]
-            public IActionResult MakePlayer()
-            {
-                // TODO: Lav player baseret på User/claims
-                // var playerId = GetPlayerIdFromJwt();
+            // TODO: Lav player baseret på User/claims
+            // var playerId = GetPlayerIdFromJwt();
 
-                return Ok("ok fra MakePlayer"); // evt. Created(...)
-            }
-
-            // GET: api/player
-            [HttpGet]
-            public ActionResult<string> GetPlayerInfo()
-            {
-
-                // var playerId = GetPlayerIdFromJwt();
-                // var name = ...
-
-                return Ok("ok fra GetPlayerInfo");
-            }
-
-            // PUT: api/player
-            [HttpPut]
-            public IActionResult UpdatePlayerInfo([FromBody] UpdatePlayerInfoRequest request)
-            {
-                // var playerId = GetPlayerIdFromJwt();
-                // request.Name ...
-
-                return Ok("ok fra UpdatePlayerInfo");
-            }
-
-            // DELETE: api/player/{id}
-            [HttpDelete("{id}")]
-            public IActionResult DeletePlayer(string id)
-            {
-                // TODO: Slet player (evt. tjek at id matcher JWT player)
-                return Ok("ok fra DeletePlayer");
-            }
-
-            // GET: api/player/deck/{deckId}
-            [HttpGet("deck/{deckId}")]
-            public ActionResult<DeckDto> GetDeck(string deckId)
-            {
-                // var playerId = GetPlayerIdFromJwt();
-                // var deck = ...
-
-                return Ok("ok fra GetDeck");
-            }
-
-            // GET: api/player/cards
-            [HttpGet("cards")]
-            public ActionResult<List<string>> GetCards()
-            {
-                // var playerId = GetPlayerIdFromJwt();
-                // var cards = ...
-
-                return Ok("ok fra GetCards");
-            }
-
-            // Helper til at hente PlayerId/UserId fra JWT claims
-            private string? GetPlayerIdFromJwt()
-            {
-                return User.FindFirstValue(ClaimTypes.NameIdentifier);
-                // eller hvis du bruger en custom claim:
-                // return User.FindFirstValue("playerId");
-            }
+            return Ok("ok fra MakePlayer"); // evt. Created(...)
         }
 
-        // --- Request/Response DTOs ---
-        public class UpdatePlayerInfoRequest
+        // GET: api/player
+        [HttpGet("GetPlayerInfo")]
+        public ActionResult<string> GetPlayerInfo()
         {
-            public string Name { get; set; } = string.Empty;
+
+            // var playerId = GetPlayerIdFromJwt();
+            // var name = ...
+
+            return Ok("ok fra GetPlayerInfo");
         }
 
-        public class DeckDto
+        // PUT: api/player
+        [HttpPut("UpdatePlayerInfo")]
+        public IActionResult UpdatePlayerInfo([FromBody] UpdatePlayerInfoRequest request)
         {
-            public string DeckName { get; set; } = string.Empty;
-            // evt. flere felter senere
+            // var playerId = GetPlayerIdFromJwt();
+            // request.Name ...
+
+            return Ok("ok fra UpdatePlayerInfo");
         }
 
+        // DELETE: api/player/{id}
+        [HttpDelete("DeletePlayer")]
+        public IActionResult DeletePlayer(string id)
+        {
+            // TODO: Slet player (evt. tjek at id matcher JWT player)
+            return Ok("ok fra DeletePlayer");
+        }
+
+        // GET: api/player/deck/{deckId}
+        [HttpGet("deck/id")]
+        public ActionResult<DeckDto> GetDeck(string deckId)
+        {
+            // var playerId = GetPlayerIdFromJwt();
+            // var deck = ...
+
+            return Ok("ok fra GetDeck");
+        }
+
+        // GET: api/player/cards
+        [HttpGet("cards")]
+        public ActionResult<List<string>> GetCards()
+        {
+            // var playerId = GetPlayerIdFromJwt();
+            // var cards = ...
+
+            return Ok("ok fra GetCards");
+        }
+
+        // Helper til at hente PlayerId/UserId fra JWT claims
+        private string? GetPlayerIdFromJwt()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            // eller hvis du bruger en custom claim:
+            // return User.FindFirstValue("playerId");
+        }
     }
+
+    // --- Request/Response DTOs ---
+    public class UpdatePlayerInfoRequest
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+
+    public class DeckDto
+    {
+        public string DeckName { get; set; } = string.Empty;
+        // evt. flere felter senere
+    }
+
 }
+
