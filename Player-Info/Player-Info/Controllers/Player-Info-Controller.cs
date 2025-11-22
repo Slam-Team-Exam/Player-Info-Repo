@@ -19,18 +19,18 @@ namespace Player_Info.Controllers
                 // TODO: Lav player baseret på User/claims
                 // var playerId = GetPlayerIdFromJwt();
 
-                return Ok(); // evt. Created(...)
+                return Ok("ok fra MakePlayer"); // evt. Created(...)
             }
 
             // GET: api/player
             [HttpGet]
             public ActionResult<string> GetPlayerInfo()
             {
-                
+
                 // var playerId = GetPlayerIdFromJwt();
                 // var name = ...
 
-                return Ok(/* name */);
+                return Ok("ok fra GetPlayerInfo");
             }
 
             // PUT: api/player
@@ -40,7 +40,7 @@ namespace Player_Info.Controllers
                 // var playerId = GetPlayerIdFromJwt();
                 // request.Name ...
 
-                return Ok();
+                return Ok("ok fra UpdatePlayerInfo");
             }
 
             // DELETE: api/player/{id}
@@ -48,7 +48,7 @@ namespace Player_Info.Controllers
             public IActionResult DeletePlayer(string id)
             {
                 // TODO: Slet player (evt. tjek at id matcher JWT player)
-                return Ok();
+                return Ok("ok fra DeletePlayer");
             }
 
             // GET: api/player/deck/{deckId}
@@ -58,7 +58,7 @@ namespace Player_Info.Controllers
                 // var playerId = GetPlayerIdFromJwt();
                 // var deck = ...
 
-                return Ok(/* deck */);
+                return Ok("ok fra GetDeck");
             }
 
             // GET: api/player/cards
@@ -68,7 +68,7 @@ namespace Player_Info.Controllers
                 // var playerId = GetPlayerIdFromJwt();
                 // var cards = ...
 
-                return Ok(/* cards */);
+                return Ok("ok fra GetCards");
             }
 
             // Helper til at hente PlayerId/UserId fra JWT claims
