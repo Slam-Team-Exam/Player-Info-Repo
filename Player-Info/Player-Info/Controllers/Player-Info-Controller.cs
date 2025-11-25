@@ -8,7 +8,7 @@ namespace Player_Info.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class PlayerController : ControllerBase
     {
         // POST: api/player
