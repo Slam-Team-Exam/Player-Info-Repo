@@ -28,6 +28,7 @@ jobs:
           echo "No <Version> found in Player-Info.csproj!"
           exit 1
         fi
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Build .NET project
       working-directory: ./Player-Info/Player-Info
@@ -37,6 +38,17 @@ jobs:
       working-directory: ./Player-Info/Player-Info
       run: dotnet publish -c Release -o ./publish
 
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.docker_hub_pass }}" | docker login -u "${{ secrets.docker_hub_name }}" --password-stdin
+
     - name: Build Docker image
       working-directory: ./Player-Info/Player-Info
-      run: docker build . -f Dockerfile -t player-info:$(date +%s)
+      run: |
+        docker build . -f Dockerfile \
+          -t ${{ secrets.docker_hub_name }}/player-info:${VERSION} \
+          -t ${{ secrets.docker_hub_name }}/player-info:latest
+
+    - name: Push Docker image
+      run: |
+        docker push ${{ secrets.docker_hub_name }}/player-info:${VERSION}
+        docker push ${{ secrets.docker_hub_name }}/player-info:latest
